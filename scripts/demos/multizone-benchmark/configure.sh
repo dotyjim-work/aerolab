@@ -2,19 +2,22 @@
 FEATURES_FILE="/home/jdoty/src/github.com/citrusleaf/aerospike-server-enterprise/etc/features.conf"
 
 # if backend is 'docker', total nodes is NODES_PER_AZ*count(AWS_AVAILABILITY_ZONES), total clients is CLIENTS_PER_AZ*count(AWS_AVAILABILITY_ZONES)
-BACKEND="aws"
+BACKEND="gcp"
 
 # aerospike version
-VER="6.2.0.6"
+VER="6.3.0.5"
 
 # names
-CLUSTER_NAME="demo"
+CLUSTER_NAME="aerospike"
 AMS_NAME="ams"
 CLIENT_NAME="clients"
 
 # region and list of AWS AZs to deploy in; also defines number of aerospike racks
 AWS_REGION="us-east-1"
 AWS_AVAILABILITY_ZONES=(us-east-1c us-east-1d us-east-1f)
+
+GCP_PROJECT="aerospike-par-eng"
+GCP_AVAILABILITY_ZONES=(us-central1-a us-central1-b us-central1-c)
 
 # number of server nodes and client machines per AZ (per rack)
 NODES_PER_AZ=2
@@ -25,14 +28,20 @@ CLUSTER_AWS_INSTANCE="r6id.8xlarge"
 AMS_AWS_INSTANCE="m6i.2xlarge"
 CLIENT_AWS_INSTANCE="c6in.8xlarge"
 
+CLUSTER_GCP_INSTANCE="n2-highmem-32"
+AMS_GCP_INSTANCE="c3-standard-8"
+CLIENT_GCP_INSTANCE="n2-highcpu-32"
+
 # namespace name
 NAMESPACE="test"
 
 # size of the root volume
 AWS_EBS=40
+GCP_ROOT_VOLUME=(pd-balanced:40)
 
 # partitions to create per NVMe if on AWS, split as percentages
-AWS_PARTITIONS=25,25,25,25
+GCP_DATA_VOLUMES=(pd-ssd:375 pd-ssd:375 pd-ssd:375 pd-ssd:375)
+DATA_PARTITIONS="50,50"
 
 # template file name
 TEMPLATE="template.conf"

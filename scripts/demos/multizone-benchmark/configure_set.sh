@@ -15,6 +15,21 @@ then
   fi
 fi
 rm -f ${AEROLAB_CONFIG_FILE}
-[ "${BACKEND}" = "docker" ] && aerolab config backend -t docker || aerolab config backend -t aws -r ${AWS_REGION}
+
+case "${BACKEND}" in
+	"docker")
+		aerolab config backend -t docker
+		;;
+	"aws")
+		aerolab config backend -t aws -r ${AWS_REGION}
+		;;
+	"gcp")
+		aerolab config backend -t gcp -o ${GCP_PROJECT}
+		;;
+	*)
+		echo "Unknown backend"
+		;;
+esac
+
 aerolab config defaults -k '*FeaturesFilePath' -v ${FEATURES_FILE} || exit 1
 }

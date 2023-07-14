@@ -3,5 +3,5 @@ set -e
 echo
 echo "Default user:pass is admin:admin"
 echo
-nip=$(aerolab client list |grep ${AMS_NAME} |egrep -o '([0-9]{1,3}\.){3}[0-9]{1,3}' |tail -1)
+nip=$(aerolab client list |grep ${AMS_NAME} |grep -oE '([0-9]{1,3}\.){3}[0-9]{1,3}' |tail -1)
 echo "grafana: http://${nip}:3000"

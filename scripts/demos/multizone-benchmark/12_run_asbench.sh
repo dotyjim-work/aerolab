@@ -11,7 +11,7 @@ set -e
 . ./configure.sh
 
 # get one node seed IP
-NODEIP=$(aerolab cluster list -j |grep -A7 ${CLUSTER_NAME} |grep IpAddress |head -1 |egrep -o '([0-9]{1,3}\.){3}[0-9]{1,3}')
+NODEIP=$(aerolab cluster list -j | jq '.[0]."PrivateIp"')
 echo "Seed: ${NODEIP}"
 
 # parameters
